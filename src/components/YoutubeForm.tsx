@@ -2,19 +2,19 @@ import React from 'react'
 import { useFormik } from 'formik'
 
 function YoutubeForm() {
-  const handleSubmit = () => {}
   const formik = useFormik({
     initialValues: {
       name: '',
       email: '',
       channel: '',
     },
-    onSubmit: handleSubmit,
+    onSubmit: (values) => {
+      console.log(values)
+    },
   })
 
-  console.log(formik)
   return (
-    <form className="form-control">
+    <form className="form-control" onSubmit={formik.handleSubmit}>
       <label htmlFor="name">Name</label>
       <input
         type="text"
