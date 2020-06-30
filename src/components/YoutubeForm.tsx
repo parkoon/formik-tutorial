@@ -7,6 +7,7 @@ import {
   Field,
   ErrorMessage,
   FieldProps,
+  FastField,
 } from 'formik'
 import * as Yup from 'yup'
 import TextError from './TextError'
@@ -91,8 +92,9 @@ function YoutubeForm() {
         </div>
         <div className="form-control">
           <label htmlFor="address">Address</label>
-          <Field id="address" name="address" placeholder="address">
+          <FastField id="address" name="address" placeholder="address">
             {({ field, form, meta }: FieldProps) => {
+              console.log('field render')
               return (
                 <div>
                   <input type="text" id="address" {...field} />
@@ -100,7 +102,7 @@ function YoutubeForm() {
                 </div>
               )
             }}
-          </Field>
+          </FastField>
         </div>
         <div className="form-control">
           <label htmlFor="facebook">Facebook profile</label>
