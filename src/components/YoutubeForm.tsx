@@ -7,6 +7,7 @@ import {
   Field,
   ErrorMessage,
   FieldProps,
+  FormikProps,
   FastField,
 } from 'formik'
 import * as Yup from 'yup'
@@ -67,67 +68,102 @@ function YoutubeForm() {
       //   validateOnChange={false}
       //   validateOnBlur={false}
     >
-      <Form>
-        <div className="form-control">
-          <label htmlFor="name">Name</label>
-          <Field type="text" id="name" name="name" />
-          <ErrorMessage name="name" component="div" />
-        </div>
-        <div className="form-control">
-          <label htmlFor="email">E-mail</label>
-          <Field type="email" id="email" name="email" />
-          <ErrorMessage name="email">
-            {(errorMessage) => <TextError>{errorMessage}</TextError>}
-          </ErrorMessage>
-        </div>
+      {(formik: FormikProps<YoutubeFormValues>) => {
+        console.log('formik', formik)
+        return (
+          <Form>
+            <div className="form-control">
+              <label htmlFor="name">Name</label>
+              <Field type="text" id="name" name="name" />
+              <ErrorMessage name="name" component="div" />
+            </div>
+            <div className="form-control">
+              <label htmlFor="email">E-mail</label>
+              <Field type="email" id="email" name="email" />
+              <ErrorMessage name="email">
+                {(errorMessage) => <TextError>{errorMessage}</TextError>}
+              </ErrorMessage>
+            </div>
 
-        <div className="form-control">
-          <label htmlFor="channel">Channel</label>
-          <Field
-            type="text"
-            id="channel"
-            name="channel"
-            placeholder="channel name"
-          />
-          <ErrorMessage name="channel" />
-        </div>
+            <div className="form-control">
+              <label htmlFor="channel">Channel</label>
+              <Field
+                type="text"
+                id="channel"
+                name="channel"
+                placeholder="channel name"
+              />
+              <ErrorMessage name="channel" />
+            </div>
 
-        <div className="form-control">
-          <label htmlFor="comments">Comments</label>
-          <Field
-            as="textarea"
-            id="comments"
-            name="comments"
-            placeholder="comments"
-            validate={validateComments}
-          />
-          <ErrorMessage name="comments" />
-        </div>
-        <div className="form-control">
-          <label htmlFor="address">Address</label>
-          <FastField id="address" name="address" placeholder="address">
-            {({ field, form, meta }: FieldProps) => {
-              console.log('field render')
-              return (
-                <div>
-                  <input type="text" id="address" {...field} />
-                  {meta.touched && meta.error ? <div>{meta.error}</div> : null}
-                </div>
-              )
-            }}
-          </FastField>
-        </div>
-        <div className="form-control">
-          <label htmlFor="facebook">Facebook profile</label>
-          <Field type="text" id="facebook" name="social.facebook" />
-        </div>
-        <div className="form-control">
-          <label htmlFor="twitter">Facebook profile</label>
-          <Field type="text" id="twitter" name="social.twitter" />
-        </div>
+            <div className="form-control">
+              <label htmlFor="comments">Comments</label>
+              <Field
+                as="textarea"
+                id="comments"
+                name="comments"
+                placeholder="comments"
+                validate={validateComments}
+              />
+              <ErrorMessage name="comments" />
+            </div>
+            <div className="form-control">
+              <label htmlFor="address">Address</label>
+              <FastField id="address" name="address" placeholder="address">
+                {({ field, form, meta }: FieldProps) => {
+                  console.log('field render')
+                  return (
+                    <div>
+                      <input type="text" id="address" {...field} />
+                      {meta.touched && meta.error ? (
+                        <div>{meta.error}</div>
+                      ) : null}
+                    </div>
+                  )
+                }}
+              </FastField>
+            </div>
+            <div className="form-control">
+              <label htmlFor="facebook">Facebook profile</label>
+              <Field type="text" id="facebook" name="social.facebook" />
+            </div>
+            <div className="form-control">
+              <label htmlFor="twitter">Facebook profile</label>
+              <Field type="text" id="twitter" name="social.twitter" />
+            </div>
 
-        <button type="submit">Submit</button>
-      </Form>
+            <button
+              type="button"
+              onClick={() => formik.validateField('comments')}
+            >
+              Validate Comments
+            </button>
+            <button type="button" onClick={() => formik.validateForm()}>
+              Validate all
+            </button>
+            <button
+              type="button"
+              onClick={() => formik.setFieldTouched('comments')}
+            >
+              Visit Comments
+            </button>
+            <button
+              type="button"
+              onClick={() =>
+                formik.setTouched({
+                  name: true,
+                  email: true,
+                  channel: true,
+                  comments: true,
+                })
+              }
+            >
+              Visit all
+            </button>
+            <button type="submit">Submit</button>
+          </Form>
+        )
+      }}
     </Formik>
   )
 }
