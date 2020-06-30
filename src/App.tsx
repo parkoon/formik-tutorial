@@ -1,7 +1,12 @@
 import React from 'react'
+import YoutubeForm from './components/YoutubeForm'
 
 function App() {
-  return <div>Hello World</div>
+  return (
+    <div className="App">
+      <YoutubeForm />
+    </div>
+  )
 }
 
 export default App
