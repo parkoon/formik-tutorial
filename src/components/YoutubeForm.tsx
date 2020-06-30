@@ -9,13 +9,19 @@ import {
   FieldProps,
 } from 'formik'
 import * as Yup from 'yup'
+import TextError from './TextError'
 
+// https://www.reactnativeschool.com/build-and-validate-forms-with-formik-and-yup/handling-server-errors
 const initialValues = {
   name: '',
   email: '',
   channel: '',
   comments: '',
   address: '',
+  social: {
+    facebook: '',
+    twitter: '',
+  },
 }
 
 const onSubmit = (values: YoutubeFormValues) => {
@@ -35,6 +41,10 @@ type YoutubeFormValues = {
   channel: string
   comments: string
   address: string
+  social: {
+    facebook: string
+    twitter: string
+  }
 }
 
 function YoutubeForm() {
@@ -48,15 +58,17 @@ function YoutubeForm() {
         <div className="form-control">
           <label htmlFor="name">Name</label>
           <Field type="text" id="name" name="name" />
-          <ErrorMessage name="name" />
+          <ErrorMessage name="name" component="div" />
         </div>
         <div className="form-control">
           <label htmlFor="email">E-mail</label>
           <Field type="email" id="email" name="email" />
-          <ErrorMessage name="email" />
+          <ErrorMessage name="email">
+            {(errorMessage) => <TextError>{errorMessage}</TextError>}
+          </ErrorMessage>
         </div>
 
-        <div>
+        <div className="form-control">
           <label htmlFor="channel">Channel</label>
           <Field
             type="text"
@@ -67,7 +79,7 @@ function YoutubeForm() {
           <ErrorMessage name="channel" />
         </div>
 
-        <div>
+        <div className="form-control">
           <label htmlFor="comments">Comments</label>
           <Field
             as="textarea"
@@ -77,7 +89,7 @@ function YoutubeForm() {
           />
           <ErrorMessage name="comments" />
         </div>
-        <div>
+        <div className="form-control">
           <label htmlFor="address">Address</label>
           <Field id="address" name="address" placeholder="address">
             {({ field, form, meta }: FieldProps) => {
@@ -89,6 +101,14 @@ function YoutubeForm() {
               )
             }}
           </Field>
+        </div>
+        <div className="form-control">
+          <label htmlFor="facebook">Facebook profile</label>
+          <Field type="text" id="facebook" name="social.facebook" />
+        </div>
+        <div className="form-control">
+          <label htmlFor="twitter">Facebook profile</label>
+          <Field type="text" id="twitter" name="social.twitter" />
         </div>
 
         <button type="submit">Submit</button>
