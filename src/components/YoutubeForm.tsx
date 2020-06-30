@@ -6,6 +6,7 @@ import {
   Form,
   Field,
   ErrorMessage,
+  FieldProps,
 } from 'formik'
 import * as Yup from 'yup'
 
@@ -13,6 +14,8 @@ const initialValues = {
   name: '',
   email: '',
   channel: '',
+  comments: '',
+  address: '',
 }
 
 const onSubmit = (values: YoutubeFormValues) => {
@@ -23,12 +26,15 @@ const validationSchema = Yup.object({
   name: Yup.string().required('Required!'),
   email: Yup.string().required('Required').email('Invalid email form'),
   channel: Yup.string().required('Required'),
+  address: Yup.string().required('Required'),
 })
 
 type YoutubeFormValues = {
   name: string
   email: string
   channel: string
+  comments: string
+  address: string
 }
 
 function YoutubeForm() {
@@ -52,8 +58,37 @@ function YoutubeForm() {
 
         <div>
           <label htmlFor="channel">Channel</label>
-          <Field type="text" id="channel" name="channel" />
+          <Field
+            type="text"
+            id="channel"
+            name="channel"
+            placeholder="channel name"
+          />
           <ErrorMessage name="channel" />
+        </div>
+
+        <div>
+          <label htmlFor="comments">Comments</label>
+          <Field
+            as="textarea"
+            id="comments"
+            name="comments"
+            placeholder="comments"
+          />
+          <ErrorMessage name="comments" />
+        </div>
+        <div>
+          <label htmlFor="address">Address</label>
+          <Field id="address" name="address" placeholder="address">
+            {({ field, form, meta }: FieldProps) => {
+              return (
+                <div>
+                  <input type="text" id="address" {...field} />
+                  {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+                </div>
+              )
+            }}
+          </Field>
         </div>
 
         <button type="submit">Submit</button>
