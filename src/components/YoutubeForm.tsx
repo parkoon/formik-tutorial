@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   useFormik,
   FormikConfig,
@@ -16,6 +16,17 @@ import TextError from './TextError'
 
 // https://www.reactnativeschool.com/build-and-validate-forms-with-formik-and-yup/handling-server-errors
 const initialValues = {
+  name: '',
+  email: '',
+  channel: '',
+  comments: '',
+  address: '',
+  social: {
+    facebook: '',
+    twitter: '',
+  },
+}
+const savedValues = {
   name: 'parkoon',
   email: 'parkoon@gmail.com',
   channel: 'parkoon',
@@ -66,11 +77,13 @@ type YoutubeFormValues = {
 }
 
 function YoutubeForm() {
+  const [formValues, setFormValues] = useState<YoutubeFormValues>()
   return (
     <Formik
-      initialValues={initialValues}
+      initialValues={formValues || initialValues}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
+      enableReinitialize
       //   validateOnChange={false}
       //   validateOnBlur={false}
 
@@ -170,6 +183,10 @@ function YoutubeForm() {
             </button>
             {/* <button type="submit" disabled={!(formik.dirty && formik.isValid)}> */}
             {/* <button type="submit" disabled={!formik.isValid}> */}
+
+            <button type="button" onClick={() => setFormValues(savedValues)}>
+              Load saved data
+            </button>
             <button
               type="submit"
               disabled={!formik.isValid || formik.isSubmitting}
