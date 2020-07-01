@@ -15,14 +15,14 @@ import TextError from './TextError'
 
 // https://www.reactnativeschool.com/build-and-validate-forms-with-formik-and-yup/handling-server-errors
 const initialValues = {
-  name: '',
-  email: '',
-  channel: '',
-  comments: '',
-  address: '',
+  name: 'hello',
+  email: 'email@ggog.com',
+  channel: '1212',
+  comments: '1212',
+  address: '1212',
   social: {
-    facebook: '',
-    twitter: '',
+    facebook: '1212',
+    twitter: '1212',
   },
 }
 
@@ -67,6 +67,8 @@ function YoutubeForm() {
       onSubmit={onSubmit}
       //   validateOnChange={false}
       //   validateOnBlur={false}
+
+      validateOnMount={true}
     >
       {(formik: FormikProps<YoutubeFormValues>) => {
         console.log('formik', formik)
@@ -160,7 +162,10 @@ function YoutubeForm() {
             >
               Visit all
             </button>
-            <button type="submit">Submit</button>
+            {/* <button type="submit" disabled={!(formik.dirty && formik.isValid)}> */}
+            <button type="submit" disabled={!formik.isValid}>
+              Submit
+            </button>
           </Form>
         )
       }}
