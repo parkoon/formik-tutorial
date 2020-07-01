@@ -9,25 +9,31 @@ import {
   FieldProps,
   FormikProps,
   FastField,
+  FormikHelpers,
 } from 'formik'
 import * as Yup from 'yup'
 import TextError from './TextError'
 
 // https://www.reactnativeschool.com/build-and-validate-forms-with-formik-and-yup/handling-server-errors
 const initialValues = {
-  name: 'hello',
-  email: 'email@ggog.com',
-  channel: '1212',
-  comments: '1212',
-  address: '1212',
+  name: 'parkoon',
+  email: 'parkoon@gmail.com',
+  channel: 'parkoon',
+  comments: 'foo bar',
+  address: 'Seoul',
   social: {
-    facebook: '1212',
-    twitter: '1212',
+    facebook: 'f',
+    twitter: 't',
   },
 }
 
-const onSubmit = (values: YoutubeFormValues) => {
-  console.log(values)
+const onSubmit = (
+  values: YoutubeFormValues,
+  helper: FormikHelpers<YoutubeFormValues>
+) => {
+  //   console.log('submit...', a)
+  console.log('submit...')
+  helper.setSubmitting(false)
 }
 
 const validationSchema = Yup.object({
@@ -71,7 +77,7 @@ function YoutubeForm() {
       validateOnMount={true}
     >
       {(formik: FormikProps<YoutubeFormValues>) => {
-        console.log('formik', formik)
+        // console.log('formik', formik)
         return (
           <Form>
             <div className="form-control">
@@ -163,7 +169,11 @@ function YoutubeForm() {
               Visit all
             </button>
             {/* <button type="submit" disabled={!(formik.dirty && formik.isValid)}> */}
-            <button type="submit" disabled={!formik.isValid}>
+            {/* <button type="submit" disabled={!formik.isValid}> */}
+            <button
+              type="submit"
+              disabled={!formik.isValid || formik.isSubmitting}
+            >
               Submit
             </button>
           </Form>
