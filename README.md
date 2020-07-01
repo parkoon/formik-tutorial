@@ -15,6 +15,8 @@
 
 ## Reusable Formik Controls
 
+---
+
 1. FormikContainer component
 2. FormikControl component
 3. Input
