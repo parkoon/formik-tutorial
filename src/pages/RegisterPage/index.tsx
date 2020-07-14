@@ -46,22 +46,13 @@ export default function SignUp() {
         </Typography>
         <form className={classes.form}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                name="firstName"
-                variant="outlined"
-                fullWidth
-                id="firstName"
-                label="First Name"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
+                id="name"
+                label="Name"
+                name="name"
               />
             </Grid>
             <Grid item xs={12}>
@@ -91,12 +82,6 @@ export default function SignUp() {
                 label="Password Confirm"
                 type="password"
                 id="password-confirm"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="term" color="primary" />}
-                label="I'm yours"
               />
             </Grid>
           </Grid>
